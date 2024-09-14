@@ -40,6 +40,7 @@ import { useApiCall } from "./common/appHooks.js";
 import notificationPermission from "./common/notificationPermission";
 import { getMessaging, onMessage } from "firebase/messaging";
 import firebase from "./common/firebase";
+import MindMap2 from "./MindMap/MindMap2";
 
 const ReactJoyride = lazy(() => import("react-joyride"));
 const MindMap = lazy(() => import("./MindMap/MindMap.jsx"));
@@ -48,6 +49,7 @@ const ChatDashboard = lazy(() => import("./ChatDashboard/ChatDashboard"));
 const OrgSelector = lazy(() => import("./Login/OrgSelector.jsx"));
 const Config = lazy(() => import("./Config/Config.jsx"));
 const Navbar = lazy(() => import("./Navbar/NavBar.jsx"));
+const MyNav = lazy(() => import("./Navbar/MyNav.jsx"));
 const SignIn = lazy(() => import("./Login/SignIn"));
 const EmailVerification = lazy(() => import("./Login/EmailVerification"));
 const ForgotPassword = lazy(() => import("./Login/ForgotPassword"));
@@ -287,6 +289,9 @@ function AppRoutes() {
 				<Loader name="BackDrop" />
 			</Backdrop>
 			<Switch>
+				<Route path="/customMindMap">
+				{/* CUSTOM CODE */}
+				</Route>
 				<Route path="/">
 					<Navbar
 						navOptions={navOptions}
@@ -373,7 +378,7 @@ function AppRoutes() {
 														<Route
 															exact
 															path="/:org/mind-map"
-															component={MindMap}
+															component={MindMap2}
 														/>
 														<Route
 															exact
@@ -432,6 +437,7 @@ function AppRoutes() {
 						<Redirect to={`/${org.host_url}/`} />
 					</Route>
 				</Route>
+
 			</Switch>
 		</Suspense>
 	);

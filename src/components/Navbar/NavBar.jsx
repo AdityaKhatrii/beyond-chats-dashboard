@@ -45,14 +45,14 @@ const useStyles2 = makeStyles((theme) => ({
 		alignItems: "center",
 		padding: "0.5rem 1rem",
 		cursor: "pointer",
-		color: "var(--primary)",
+		color: "white",
 		borderRadius: 8,
 		"&:hover": {
 			backgroundColor: "#f6f2f2",
 		},
 	},
 	orgName: {
-		color: "var(--color5)",
+		color: "white",
 	},
 	radio: {
 		color: "var(--primary)",
@@ -97,7 +97,7 @@ const useStyles2 = makeStyles((theme) => ({
 		display: "Flex",
 		gap: "10px",
 		alignItems: "center",
-		color: "black",
+		color: "white",
 		cursor: "pointer",
 		borderRadius: 8,
 		"&:hover": {
@@ -167,25 +167,27 @@ const NavBar = (props) => {
 	);
 
 	return (
-		<>
+		<Box >
+			
 			<MetaHelmet
 				title={activeOption?.tourHeading}
 				description={activeOption?.explanation}
 			/>
-			<AppBar
+			<AppBar 
 				position="fixed"
 				className={classNames(styles.navbar, {
 					[styles.logged_in]: access_token && !isMobile,
 				})}
+				sx={{backgroundColor:'black'}}
 			>
 				<Toolbar
 					disableGutters
-					sx={{ display: "flex", justifyContent: "space-between" }}
+					sx={{ display: "flex", justifyContent: "space-between",backgroundColor:'black',color:'white' }}
 				>
 					{access_token && isMobile ? (
-						<Box>
+						<Box sx={{backgroundColor:'black'}}>
 							<IconButton onClick={props.toggleLeftNav}>
-								<MenuIcon />
+								<MenuIcon sx={{color:'white'}} />
 							</IconButton>
 						</Box>
 					) : null}
@@ -194,7 +196,7 @@ const NavBar = (props) => {
 							variant="h3"
 							noWrap
 							sx={{
-								color: "black",
+								color: "white",
 								display: "flex",
 								alignItems: "center",
 								gap: 1,
@@ -210,8 +212,9 @@ const NavBar = (props) => {
 												md: "none",
 												fontSize: "16px",
 											},
+											color:'white'
 										}}
-										color="primary"
+										
 									/>
 								</Tooltip>
 							) : (
@@ -221,7 +224,7 @@ const NavBar = (props) => {
 						<Typography
 							variant="subtitle2"
 							sx={{
-								color: "black",
+								color: "white",
 								fontWeight: 400,
 								display: { xs: "none", md: "block", maxWidth: "500px" },
 							}}
@@ -242,7 +245,6 @@ const NavBar = (props) => {
 												label="God Mode?"
 											/>
 										}
-										sx={{ color: "black" }}
 										label="God Mode?"
 									/>
 								) : null}
@@ -252,7 +254,7 @@ const NavBar = (props) => {
 										variant="outlined"
 										onClick={() => props.setShowStartTutorial(true)}
 									>
-										<Typography variant="h6">Guided Tour</Typography>
+										<Typography sx={{ color:'white'}} variant="h6">Guided Tour</Typography>
 									</Button>
 								) : null}
 								{/* ORG Selector */}
@@ -267,7 +269,7 @@ const NavBar = (props) => {
 										endIcon={<KeyboardArrowDown />}
 										onClick={handleOpenOrgMenu}
 									>
-										<Typography
+										<Typography 
 											variant="h5"
 											component="div"
 											className={classes.orgName}
@@ -361,149 +363,8 @@ const NavBar = (props) => {
 				</Toolbar>
 			</AppBar>
 			<Toolbar />
-			{/* <div
-				className={classNames(`navbar`, {
-					logged_in: access_token,
-				})}
-			>
-				<div className="nav-logo">
-					<Link to="/">BeyondChats Admin Dashboard</Link>
-				</div>
-
-				{access_token ? (
-					<div className="nav-profile">
-						<div className={"Nav-div " + classes.tutorialStart}>
-							<Button
-								variant="outlined"
-								onClick={() => props.setShowStartTutorial(true)}
-							>
-								<Typography variant="h6">Guided Tour</Typography>
-							</Button>
-						</div>
-						<div className={"Nav-div"}>
-							<ClickAwayListener
-								onClickAway={() => {
-									if (isDesktopBarOpened) hideOrgSelector();
-								}}
-							>
-								<div
-									className="Nav"
-									onMouseLeave={hideOrgSelector}
-									onClick={showOrgSelector}
-									onMouseEnter={showOrgSelector}
-								>
-									<Button
-										variant="text"
-										disableFocusRipple
-										disableTouchRipple
-										className={`profileNavBtn ${
-											isDesktopBarOpened ? "profileNavBtnBack" : ""
-										}`}
-										classes={{
-											root: classes.orgBtn,
-										}}
-									>
-										<Typography
-											variant="h5"
-											component="div"
-											className={classes.orgName}
-										>
-											{currOrgName ?? "Select Org"}
-										</Typography>
-										<KeyboardArrowDown
-											classes={{
-												root: classes.arrowDown,
-											}}
-										/>
-									</Button>
-
-									<div
-										className={classNames(
-											"DesktopProfileViewer",
-											classes.orgSelector,
-											{
-												displayNone: !isOrgSelectorOpened,
-											}
-										)}
-									>
-										<div className="nav-hr"></div>
-										{loading ? (
-											<div className={classes.loader}>
-												<SmallLoader
-													height="220px"
-													width="150px"
-													text={false}
-												/>
-											</div>
-										) : orgs?.length > 0 ? (
-											orgs.map((org, index) => <Org org={org} key={index} />)
-										) : (
-											<p className={classes.noOrg}>
-												You are not a part of any organization
-											</p>
-										)}
-									</div>
-								</div>
-							</ClickAwayListener>
-						</div>
-
-						<div className={"Nav-div"}>
-							<ClickAwayListener
-								onClickAway={() => {
-									if (isDesktopBarOpened) hideDesktopProfile();
-								}}
-							>
-								<div
-									className="Nav"
-									onMouseLeave={hideDesktopProfile}
-									onClick={showDesktopProfile}
-									onMouseEnter={showDesktopProfile}
-								>
-									<div
-										className={`profileNavBtn ${
-											isDesktopBarOpened ? "profileNavBtnBack" : ""
-										}`}
-									>
-										<div
-											className="profile-nav-grid"
-											style={{
-												border: "0.1em solid var(--primary)",
-											}}
-										>
-											<div
-												className="navbar-profile-image"
-												style={{
-													backgroundImage: `url(https://api.dicebear.com/5.x/micah/svg?seed=${email})`,
-												}}
-											/>
-										</div>
-									</div>
-
-									<div
-										className={classNames("DesktopProfileViewer", {
-											displayNone: !isDesktopBarOpened,
-										})}
-									>
-										{props.navOptions.map(({ title, Icon, onClick }) => (
-											<div
-												key={title}
-												className={classes.navOptionsContainer}
-												onClick={onClick}
-											>
-												<Icon />
-												<Typography variant="h5" component="div">
-													{title}
-												</Typography>
-											</div>
-										))}
-									</div>
-								</div>
-							</ClickAwayListener>
-						</div>
-					</div>
-				) : null}
-			</div> */}
-		</>
+			
+		</Box>
 	);
 };
 export default withRouter(NavBar);

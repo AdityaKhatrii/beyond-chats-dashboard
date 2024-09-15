@@ -49,7 +49,6 @@ const ChatDashboard = lazy(() => import("./ChatDashboard/ChatDashboard"));
 const OrgSelector = lazy(() => import("./Login/OrgSelector.jsx"));
 const Config = lazy(() => import("./Config/Config.jsx"));
 const Navbar = lazy(() => import("./Navbar/NavBar.jsx"));
-const MyNav = lazy(() => import("./Navbar/MyNav.jsx"));
 const SignIn = lazy(() => import("./Login/SignIn"));
 const EmailVerification = lazy(() => import("./Login/EmailVerification"));
 const ForgotPassword = lazy(() => import("./Login/ForgotPassword"));

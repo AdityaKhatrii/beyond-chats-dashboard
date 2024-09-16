@@ -16,8 +16,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 	alignItems: "center",
 	justifyContent: "flex-end",
 	padding: theme.spacing(0, 1),
+	backgroundColor: 'black',
 	// necessary for content to be below app bar
 	...theme.mixins.toolbar,
+	color: 'white'
 }));
 
 const drawerWidth = 270;
@@ -28,6 +30,7 @@ const openedMixin = (theme) => ({
 		duration: theme.transitions.duration.enteringScreen,
 	}),
 	overflowX: "hidden",
+	backgroundColor: 'black'
 });
 
 const closedMixin = (theme) => ({
@@ -42,7 +45,8 @@ const closedMixin = (theme) => ({
 	},
 	[theme.breakpoints.down("sm")]: {
 		width: `0px`,
-	},
+	}, color: 'white',
+	backgroundColor: 'black'
 });
 const Drawer = styled(MuiDrawer, {
 	shouldForwardProp: (prop) => prop !== "open",
@@ -59,6 +63,8 @@ const Drawer = styled(MuiDrawer, {
 		...closedMixin(theme),
 		"& .MuiDrawer-paper": closedMixin(theme),
 	}),
+	color: 'white',
+	backgroundColor: 'black'
 }));
 
 const LeftDrawer = ({ isOpened, toggleLeftNav, navOptions }) => {
@@ -68,19 +74,27 @@ const LeftDrawer = ({ isOpened, toggleLeftNav, navOptions }) => {
 			anchor="left"
 			open={isOpened}
 			onClose={toggleLeftNav}
+			
 		>
 			<Tooltip
 				title={isOpened ? "Close Left Drawer" : "Open Left Drawer"}
 				arrow
+				sx={{
+					color: 'white',
+					backgroundColor: 'black'
+				}}
 			>
 				<DrawerHeader>
-					<IconButton onClick={toggleLeftNav}>
+					<IconButton sx={{ color: 'white' }} onClick={toggleLeftNav}>
 						{isOpened ? <ChevronLeftIcon /> : <MenuIcon />}
 					</IconButton>
 				</DrawerHeader>
 			</Tooltip>
 			<Divider />
-			<List>
+			<List sx={{
+				color: 'white',
+				backgroundColor: 'black'
+			}} >
 				{navOptions.map(({ title, Icon, onClick, isActive }, index) => (
 					<Tooltip
 						title={isOpened ? "" : title}
@@ -92,9 +106,9 @@ const LeftDrawer = ({ isOpened, toggleLeftNav, navOptions }) => {
 							disablePadding
 							sx={{
 								display: "block",
-								backgroundColor: isActive ? "primary.light" : undefined,
+								backgroundColor: isActive ? "grey" : undefined,
 							}}
-							className={`nav-option-${index}`}
+							color={`nav-option-${index}`}
 						>
 							<ListItemButton
 								onClick={() => {
@@ -105,6 +119,7 @@ const LeftDrawer = ({ isOpened, toggleLeftNav, navOptions }) => {
 									minHeight: 48,
 									justifyContent: isOpened ? "initial" : "center",
 									px: 2.5,
+									color: 'white',
 								}}
 							>
 								<ListItemIcon
@@ -112,14 +127,15 @@ const LeftDrawer = ({ isOpened, toggleLeftNav, navOptions }) => {
 										minWidth: 0,
 										mr: isOpened ? 3 : "auto",
 										justifyContent: "center",
+										color: '#58B9FF'
 									}}
 								>
-									<Icon color={isActive ? "primary" : undefined} />
+									<Icon color={isActive ? "#58B9FF" : undefined} />
 								</ListItemIcon>
 								<ListItemText
 									primary={title}
 									// sx={{ display: isOpened ? "block" : "none" }}
-									sx={{ opacity: isOpened ? 1 : 0 }}
+									sx={{ opacity: isOpened ? 1 : 0 ,}}
 								/>
 							</ListItemButton>
 						</ListItem>

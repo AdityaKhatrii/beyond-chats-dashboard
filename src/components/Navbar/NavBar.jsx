@@ -165,29 +165,187 @@ const NavBar = (props) => {
 	const activeOption = props.navOptions.find(
 		(option) => option.isActive === true
 	);
+	if(isMobile){
+		return <Box  >
+
+		<MetaHelmet
+			title={activeOption?.tourHeading}
+			description={activeOption?.explanation}
+		/>
+		<AppBar
+			position="fixed"
+			className={classNames(styles.navbar, {
+				[styles.logged_in]: access_token && !isMobile,
+			})}
+			
+		>
+			<Toolbar
+				disableGutters
+				sx={{ display: "flex", justifyContent: "space-between",
+					
+				
+					borderRadius:'7px',
+					p:'0px 10px',
+					 background: 'linear-gradient(0deg, #666666,#1C1E2F)', color: 'white',
+					height:70
+				 }}
+			>
+				{access_token && isMobile ? (
+					<Box >
+						<IconButton onClick={props.toggleLeftNav}>
+							<MenuIcon sx={{ color: 'white' }} />
+						</IconButton>
+					</Box>
+				) : null}
+				<Box>
+					<Typography
+						variant="h3"
+						noWrap
+						sx={{
+							color: "white",
+							display: "flex",
+							alignItems: "center",
+							gap: 1,
+						}}
+					>
+						{activeOption?.tourHeading ?? "BeyondChats"}
+						{activeOption?.explanation ? (
+							<Tooltip title={activeOption?.explanation}>
+								<InfoIcon
+									sx={{
+										display: {
+											xs: "inline-block",
+											md: "none",
+											fontSize: "16px",
+										},
+										color: 'white'
+									}}
+
+								/>
+							</Tooltip>
+						) : (
+							<></>
+						)}
+					</Typography>
+					<Typography
+						variant="subtitle2"
+						sx={{
+							color: "white",
+							fontWeight: 400,
+							display: { xs: "none", md: "block", maxWidth: "500px" },
+						}}
+					>
+						{activeOption?.explanation}
+					</Typography>
+				</Box>
+
+				<Box sx={{ flexGrow: 0, gap: 2, display: "flex" }}>
+					{access_token ? (
+						<>
+							{is_god ? (
+								<FormControlLabel
+									control={
+										<Switch
+											checked={is_god}
+											onChange={handleToggleGodMode}
+											label="God Mode?"
+										/>
+									}
+									label="God Mode?"
+								/>
+							) : null}
+
+							
+							{/* ORG Selector */}
+							<Tooltip title="View Orgs">
+								<Button
+									variant="text"
+									disableFocusRipple
+									disableTouchRipple
+									classes={{
+										root: classes.orgBtn,
+									}}
+									endIcon={<KeyboardArrowDown />}
+									onClick={handleOpenOrgMenu}
+								>
+									<Typography
+										variant="h5"
+										component="div"
+										className={classes.orgName}
+									>
+										{currOrgName ?? "Select Org"}
+									</Typography>
+									{/* <KeyboardArrowDown
+										classes={{
+											root: classes.arrowDown,
+										}}
+									/> */}
+								</Button>
+							</Tooltip>
+							
+							{/* Pages Available */}
+							<Menu
+								sx={{ mt: "45px" }}
+								anchorEl={anchorElUser}
+								anchorOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								open={Boolean(anchorElUser)}
+								onClose={handleCloseUserMenu}
+							>
+								{props.navOptions.map(({ title, Icon, onClick }) => (
+									<MenuItem
+										key={title}
+										onClick={() => {
+											onClick();
+											handleCloseUserMenu();
+										}}
+										className={classes.navOptionsContainer}
+									>
+										<Icon />
+
+										<Typography textAlign="center">{title}</Typography>
+									</MenuItem>
+								))}
+							</Menu>
+						</>
+					) : null}
+				</Box>
+			</Toolbar>
+		</AppBar>
+		<Toolbar />
+
+	</Box>
+	}
 
 	return (
 		<Box >
-			
+
 			<MetaHelmet
 				title={activeOption?.tourHeading}
 				description={activeOption?.explanation}
 			/>
-			<AppBar 
+			<AppBar
 				position="fixed"
 				className={classNames(styles.navbar, {
 					[styles.logged_in]: access_token && !isMobile,
 				})}
-				sx={{backgroundColor:'black'}}
+				sx={{ backgroundColor: 'black' }}
 			>
 				<Toolbar
 					disableGutters
-					sx={{ display: "flex", justifyContent: "space-between",backgroundColor:'black',color:'white' }}
+					sx={{ display: "flex", justifyContent: "space-between", backgroundColor: 'black', color: 'white' }}
 				>
 					{access_token && isMobile ? (
-						<Box sx={{backgroundColor:'black'}}>
+						<Box sx={{ backgroundColor: 'black' }}>
 							<IconButton onClick={props.toggleLeftNav}>
-								<MenuIcon sx={{color:'white'}} />
+								<MenuIcon sx={{ color: 'white' }} />
 							</IconButton>
 						</Box>
 					) : null}
@@ -212,9 +370,9 @@ const NavBar = (props) => {
 												md: "none",
 												fontSize: "16px",
 											},
-											color:'white'
+											color: 'white'
 										}}
-										
+
 									/>
 								</Tooltip>
 							) : (
@@ -254,7 +412,7 @@ const NavBar = (props) => {
 										variant="outlined"
 										onClick={() => props.setShowStartTutorial(true)}
 									>
-										<Typography sx={{ color:'white'}} variant="h6">Guided Tour</Typography>
+										<Typography sx={{ color: 'white' }} variant="h6">Guided Tour</Typography>
 									</Button>
 								) : null}
 								{/* ORG Selector */}
@@ -269,7 +427,7 @@ const NavBar = (props) => {
 										endIcon={<KeyboardArrowDown />}
 										onClick={handleOpenOrgMenu}
 									>
-										<Typography 
+										<Typography
 											variant="h5"
 											component="div"
 											className={classes.orgName}
@@ -363,7 +521,7 @@ const NavBar = (props) => {
 				</Toolbar>
 			</AppBar>
 			<Toolbar />
-			
+
 		</Box>
 	);
 };

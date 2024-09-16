@@ -582,6 +582,7 @@ const MindMap2 = () => {
             <Box sx={{marginTop:'-15px'}}>
                     <img src={waveImg} className={classes.wave} alt="wave img" />
                 </Box>
+
             <Box sx={{ padding: "10px", borderRadius: "8px", height: "100%" }}>
                 {isSmScreen ? (
                     loading ? (
@@ -602,7 +603,7 @@ const MindMap2 = () => {
                     )
                 ) : (
                     <Box sx={{ width: "100%", minWidth: "960px" }}>
-                        <DataGrid
+                        <DataGrid sx={{color:'white'}}
                             rows={data}
                             columns={columns}
                             loading={loading}
@@ -632,8 +633,7 @@ const MindMap2 = () => {
                     <Pagination
                         page={page}
                         count={count}
-                        sx={{ m: "10px auto" }}
-                        color="primary"
+                        sx={{ m: "10px auto",color:'white' }}
                         renderItem={(item) => {
                             const searchParams = new URLSearchParams(location.search);
                             searchParams.set("page", item.page);

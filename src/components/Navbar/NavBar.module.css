@@ -15,7 +15,7 @@
 }
 @media (max-width: 600px) {
 	.navbar {
-		height: 56px;
+		height:70px;
 	}
 	.navbar.logged_in {
 		/* 100vw - width of small left drawer, also see LeftDrawer in Routes */
